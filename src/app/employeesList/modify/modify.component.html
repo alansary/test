@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+        <form   #f="ngForm"  (ngSubmit)="save(f.value)" >
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input #name="ngModel" [(ngModel)]="employee.name"  name="name" id="name" type="text"
+               class="form-control" placeholder="Please Enter Name" required [rangeLength]="[4, 20]">
+               <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+              <div *ngIf="name.errors.required">Name Is Required</div>
+              <div *ngIf="name.errors.rangeLength">Name Is Minimum 4 character && Maximum 20 character</div>
+               </div>
+            </div>
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input  #address="ngModel" [(ngModel)]="employee.address"  name="address" id="address" type="text"
+               class="form-control"  placeholder="Please Enter Address" required [rangeLength]="[10, 20]">
+               <div class="alert alert-danger" *ngIf="address.touched && address.invalid">
+                  <div *ngIf="address.errors.required">Address Is Required</div>
+              <div *ngIf="address.errors.rangeLength">Address Minimum 10 character && Maximum 20 character</div>
+                 </div>
+            </div>
+            <div class="form-group">
+              <label for="birth">Birthdate</label>
+              <input  #birth="ngModel" [(ngModel)]="employee.birth"  name="birth" id="birth" type="text"
+               class="form-control"  placeholder="Please Enter Birthdate" required>
+               <div class="alert alert-danger" *ngIf="birth.touched && birth.invalid">
+                  <div *ngIf="birth.errors.required">Birthdate Is Required</div>
+                 </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input   #email="ngModel" [(ngModel)]="employee.email"  name="email" id="email" type="email"
+                 class="form-control"  placeholder="name@example.com" required email>
+                 <div class="alert alert-danger" *ngIf="email.touched && email.invalid">
+                    <div *ngIf="email.errors.required">Email Is Required</div>
+                    <div *ngIf="email.errors.email">Email Should Be Like name@example.com</div>
+                   </div>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+              <select  #gender="ngModel"  [(ngModel)]="employee.gender"  name="gender" id="gender" required
+              class="form-control"  >
+              <option value=""  selected>Choose...</option>
+                <option *ngFor="let g of gender$ | async" [value]="g.name">{{g.name}}</option>
+              </select>
+              <div class="alert alert-danger" *ngIf="gender.touched && gender.invalid">
+                  Gender Is Required
+                 </div>
+            </div>
+            <div class="form-group">
+                <button class="uk-button uk-button-default demo" onclick="UIkit.notification({message: 'Employee Saved Successfully', status: 'success', timeout : 3000})"
+                [disabled]="f.invalid">Save</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <div class="uk-card uk-card-default uk-width-2-2@m">
+            <div class="uk-card-header">
+                <div class="uk-grid-small uk-flex-middle" uk-grid>
+                    <div class="uk-width-expand">
+                        <p class="uk-card-title uk-margin-remove-bottom">{{employee.name}}</p>
+                        <p class="uk-text-meta uk-margin-remove-top">{{employee.address}}</p>
+                        <p class="uk-text-meta uk-margin-remove-top">{{employee.birth}}</p>
+                        <p class="uk-text-meta uk-margin-remove-top">{{employee.email}}</p>
+                        <p class="uk-text-meta uk-margin-remove-top">{{employee.gender}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+</div>
